@@ -1,0 +1,11 @@
+<form class="form-signin" method="post" action="changePassword">
+	<input type="hidden"  name="token" value="{{ @SESSION.csrf }}">
+	<h3 class="form-signin-heading">{{ @lang.changePassword }}</h3>
+	<label class="sr-only" for="inputPassword">{{ @lang.oldPassword }}</label>
+	<input type="password" name="oldPassword" autofocus="" required="" placeholder="{{ @lang.oldPassword }}" class="form-control" id="inputPassword">
+	<label class="sr-only" for="inputPassword">{{ @lang.newPassword }}</label>
+	<input type="password" name="password" required="" placeholder="{{ @lang.newPasswort }}" class="form-control" id="inputPassword">
+	<label class="sr-only" for="inputPassword">{{ @lang.passwordAgain }}</label>
+	<input type="password" name="passwordAgain" required="" placeholder="{{ @lang.passwordAgain }}" class="form-control" id="inputPassword">
+	<button type="submit" class="btn btn-lg btn-primary btn-block">{{ @lang.changePassword }}</button>
+</form>

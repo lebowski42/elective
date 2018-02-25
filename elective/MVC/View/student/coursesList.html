@@ -1,0 +1,60 @@
+<link href="elective/MVC/View/bootstrap/css/accordion.css" rel="stylesheet">
+<style type="text/css">
+    .accordion{
+    	margin: 20px;
+    }
+    .rotate{
+		-webkit-transform: rotate(90deg);  /* Chrome, Safari, Opera */
+			-moz-transform: rotate(90deg);  /* Firefox */
+			-ms-transform: rotate(90deg);  /* IE 9 */
+				transform: rotate(90deg);  /* Standard syntax */    
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        // Add minus icon for collapse element which is open by default
+        $(".collapse.in").each(function(){
+        	$(this).siblings(".panel-heading").find(".glyphicon").addClass("rotate");
+        });
+        
+        // Toggle plus minus icon on show hide of collapse element
+        $(".collapse").on('show.bs.collapse', function(){
+        	$(this).parent().find(".glyphicon").addClass("rotate");
+        }).on('hide.bs.collapse', function(){
+        	$(this).parent().find(".glyphicon").removeClass("rotate");
+        });
+    });
+</script>
+
+
+
+<div class="accordion">
+<check if="{{ @info }}">
+	<true>
+	<p>{{ @info }}</p>
+	</true>
+</check>
+    <div class="panel-group" id="accordion">
+
+<repeat group="{{ @courses }}" value="{{ @course }}"counter="{{ @i }}">
+<div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ @course.courseID}}">{{ @i }}.  {{ @course.courseTitle }}</a>
+                </h4>
+            </div>
+            <div id="collapse{{ @course.courseID}}" class="panel-collapse collapse">
+                <div class="panel-body">
+					<b>{{ ucfirst(@lang.teacher) }}:</b>
+					<i>{{ @course.teachers }}</i>
+					<br>
+					<b>{{ @lang.courseID }}:</b> {{ @course.courseID }}
+					<br>
+                    <p>{{ @course.courseDescription }}</p>
+                </div>
+            </div>
+        </div>
+</repeat>
+
+</div>
+</div>

@@ -1,0 +1,8 @@
+<div class="alert alert-danger mt-4" role="alert">
+				<b>{{ @lang.admin.users.errors |raw }}</b>
+				<ul class="mt-2">
+					<repeat group="{{ @errors }}" value="{{ @error }}">
+   						<li>{{ @error }}</li>
+					</repeat>
+				</ul>
+			</div>

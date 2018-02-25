@@ -1,0 +1,16 @@
+<p>{{ @lang.teacherStartpageNoCourse }}</p>
+
+<form method="post" action="editCourse">
+<input type="hidden" class="form-control" name="token" id="token" value="123">
+<button type="submit" style="float: left;" class="btn btn-lg btn-primary" value="edit" >{{ @lang.createCourse }}</button>
+</form>
+
+
+<form method="post" action="joinCourse">
+<input type="hidden" class="form-control" name="token" id="token" value="123">
+<button type="submit" style="float: left;" class="btn btn-lg btn-primary" value="edit" >{{ @lang.joinCourse }}</button>
+</form>
+
+<div class="clearfix""></div>
+<p style="margin-top:30px;">{{ @lang.deadlineEditCourse,@deadlineEditCourse |format}}</p>
+

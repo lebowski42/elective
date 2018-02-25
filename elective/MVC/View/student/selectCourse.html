@@ -1,0 +1,81 @@
+<script src="elective/MVC/View/js/ajax.js"></script>
+<script src="elective/MVC/View/js/selectAndOrder.js"></script>
+<script type="text/javascript">
+    function selectAll() 
+    { 
+        selectBox = document.getElementById("selected-courses");
+		if(selectBox.options.length > {{ @maxNumberOfCoursesToChoose }} || selectBox.options.length < {{ @minNumberOfCoursesToChoose }}){
+			<check if="@minNumberOfCoursesToChoose == @maxNumberOfCoursesToChoose">
+				<true>
+					alert("{{ @lang.alertCourseNumber,@maxNumberOfCoursesToChoose|format}} "+ selectBox.options.length);
+				</true>
+				<false>
+					alert("{{ @lang.alertCourseNumberInterval,@minNumberOfCoursesToChoose|format,@maxNumberOfCoursesToChoose|format}} "+ selectBox.options.length);
+				</false>
+			</check>
+			return false;
+		}
+
+
+        for (var i = 0; i < selectBox.options.length; i++) 
+        { 
+             selectBox.options[i].selected = true; 
+        } 
+		return true;
+    }
+</script>
+<div id="dialog"></div>
+<script type="text/javascript">
+	$(document).ready(function () {
+	    $('#all-courses').dblclick(function() {
+					 courseDescription($('#all-courses').val());
+		})
+		$('#selected-courses').dblclick(function() {
+					courseDescription($('#selected-courses').val());
+		})
+	})
+</script>
+
+
+<h1>{{ @lang.selectionTitle }}</h1>
+
+<check if="@minNumberOfCoursesToChoose == @maxNumberOfCoursesToChoose">
+	<true>
+		<p>{{ @lang.introSelection, @maxNumberOfCoursesToChoose | format }}</p>
+	</true>
+	<false>
+		<p>{{ @lang.introSelectionInterval,@minNumberOfCoursesToChoose|format,@maxNumberOfCoursesToChoose|format }}</p>
+	</false>
+</check>
+
+<p>{{ @lang.prioritySelection }}</p>
+<p>{{ @lang.deadlineSelection,@deadlineCourseSelection |format}}</p>
+
+<form method="post" action="select">
+  <fieldset>
+	<input type="hidden"  name="token" value="{{ @SESSION.csrf }}">
+    <select name="allCourses" id="all-courses" multiple size="15" class="form-control"  style="width:40%; float:left;">
+    	<repeat group="{{ @courses }}" value="{{ @course }}">
+    		<option value="{{ @course.courseID }}">{{ @course.title }}</option>
+		</repeat>
+    </select>
+	<div style="width:20%; float:left;" class="center-content">
+		<div>
+			<div class="center-content"><a href="JavaScript:void(0);" id="btn-add">{{ @lang.add }} &raquo;</a></div>
+			<div class="center-content"><a href="JavaScript:void(0);" id="btn-remove">&laquo; {{ @lang.remove }}</a></div>
+		</div>
+	</div>
+	<div style="width:40%; float:right;">
+		<select name="selectedCourses[]" id="selected-courses" multiple size="{{ @maxNumberOfCoursesToChoose +2}}" class="form-control" >
+			<repeat group="{{ @scourses }}" value="{{ @scourse }}">
+				<option value="{{ @scourse.courseID }}">{{ @scourse.title }}</option>
+			</repeat>
+		</select>
+		<a href="JavaScript:void(0);" id="btn-up">&uarr; {{ @lang.up }}</a>
+		<a href="JavaScript:void(0);" id="btn-down">&darr; {{ @lang.down }}</a>
+	</div>
+  </fieldset>
+
+<button type="submit" style="float: right;" class="btn btn-lg btn-primary" onclick="return selectAll();">{{ @lang.saveSelection }}</button>
+</form>
+

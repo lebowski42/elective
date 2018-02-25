@@ -1,0 +1,17 @@
+<script type="text/javascript">
+function saveJoinCourse(){
+	var id = getCourseIDFromTable();
+	if(id){
+		window.location.href = '/saveJoinCourse?courseID='+id+"&token={{ @SESSION.csrf}}";
+	}else{
+		alert("{{ @lang.selectCourse }}");	
+	}
+}
+</script>
+<h5 class="mt-3"><strong>{{ @lang.joinCourseHint }}</strong></h5>
+
+<include href="courseTable.html" />
+
+
+
+<button type="submit" style="float: left;" class="ml-3 btn btn-lg btn-primary" value="edit" onclick="saveJoinCourse()" >{{ @lang.joinCourseButton }}</button>

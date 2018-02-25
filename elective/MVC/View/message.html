@@ -1,0 +1,7 @@
+<check if="{{ !empty(@message) }}">
+	<true>
+	<repeat group="{{ @message }}" value="{{ @m }}">
+		<p>{{ @m }}</p>
+	</repeat>
+	<true>
+</check>

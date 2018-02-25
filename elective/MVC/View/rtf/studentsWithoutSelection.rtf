@@ -1,0 +1,23 @@
+{\rtf1
+<repeat group="{{ @studentsWithoutSelection }}"  key="{{ @key }}" value="{{ @group }}">
+	\fs50\b  {{ @key }}\b0\fs24\line
+	\par
+<exclude>loop over all users of this group
+	Tabs and spaces in this file will be occure in rtf
+</exclude>
+<repeat group="{{ @group }}" value="{{ @user }}">
+\line \bullet  {{ @user.2 }}, {{ @user.3 }}
+</repeat>
+<exclude>
+New line after usergroup
+</exclude>
+	\page
+</repeat>
+
+}
+
+
+
+
+
+

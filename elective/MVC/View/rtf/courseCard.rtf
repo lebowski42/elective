@@ -1,0 +1,15 @@
+{\rtf1
+<repeat group="{{ @courses}}" value="{{ @course }}">
+\par
+\fs44 {{ @course.courseID}}. \b {{ @course.title }}\b0\fs24\par\line
+\b {{ @lang.teacher }}:\b0 {{ @course.teacherList }}\par\line
+{{ @course.description }}
+\page
+</repeat>
+}
+
+
+
+
+
+

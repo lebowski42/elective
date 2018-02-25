@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<include href="header.html" />
+	</head>
+
+	<body>
+	    <!-- Navigation -->
+    	<include href="navigation.html" />
+
+    	<!-- Page Content -->
+    	<div class="container">
+			<check if="{{ @SESSION.warning =='' }}">
+    			<false>
+						<div class="alert alert-warning" role="alert">
+ 							 {{ @SESSION.warning }}
+						</div>
+				</false>
+			</check>
+			<check if="{{ @SESSION.info =='' }}">
+    			<false>
+						<div class="alert alert-info" role="alert">
+ 							 {{ @SESSION.info }}
+						</div>
+				</false>
+			</check>
+			<check if="{{ @SESSION.danger =='' }}">
+    			<false>
+						<div class="alert alert-danger" role="alert">
+ 							 {{ @SESSION.danger }}
+						</div>
+				</false>
+			</check>
+			<check if="{{ @SESSION.success =='' }}">
+    			<false>
+						<div class="alert alert-success" role="alert">
+ 							 {{ @SESSION.success }}
+						</div>
+				</false>
+			</check>
+			<include href="{{ @content }}" />
+		</div>
+	</body>
+</html>

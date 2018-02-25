@@ -1,0 +1,95 @@
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="newUserModalTitel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newUserTitel">{{ @lang.admin.users.addUser }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<!-- user form -->
+		 <form method="POST" action="admin/addUser">
+			<input type="hidden"  name="token" value="{{ @SESSION.csrf }}">		
+			<div class="form-group">
+				<label for="username"> {{ @lang.username}}</label>
+				<input type="text" class="form-control" name="username" id="username" required data-placement="top" data-content="{{ @lang.admin.users.usernameExists }}" data-toggle="manual">
+			</div>
+			<div class="form-group">
+				<label for="pwd">{{ @lang.password}}</label>
+				<input type="text" class="form-control" id="password" name="password"required>
+			</div>
+			<div class="form-group">
+				<label for="fname">{{ @lang.fname}}</label>
+				<input type="text" class="form-control" id="fname" name="fname">
+			</div>
+			<div class="form-group">
+				<label for="lname">{{ @lang.lname}}</label>
+				<input type="text" class="form-control" id="lname" name="lname">
+			</div>
+			<div class="form-group">
+				<label for="formOfAddress">{{ @lang.formOfAddress}}</label>
+				<select name="formOfAddress" class="form-control" id="formOfAddress">
+					<option value="{{ @lang.mr}}">{{ @lang.mr}}</option>
+					<option value="{{ @lang.mrs}}">{{ @lang.mrs}}</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="class">{{ @lang.class}}</label>
+				<input type="text" class="form-control" id="class" name="class">
+			</div>
+			<div class="form-group">
+				<label for="role">{{ @lang.admin.users.role}}</label>
+				<select name="role" class="form-control" id="role">
+					<option value="STUDENT">{{ @lang.student}}</option>
+					<option value="TEACHER">{{ @lang.teacher}}</option>
+					<option value="ADMIN">{{ @lang.administrator}}</option>
+				</select>
+			</div>
+			<div class="email">
+				<label for="email">{{ @lang.email}}</label>
+				<input type="text" class="form-control" id="email" name="email">
+			</div>
+
+			  <button type="submit" class="btn btn-lg btn-primary btn-block mt-3" id="addUser">{{ @lang.admin.users.addUser }}</button>
+		</form> 
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$('#newUserModal').modal('show');
+	$('#username').on('input',function(e){
+    	usernameExists($('#username').val());
+	});
+	/*$('#username').focusout(function(e){
+    	usernameExists($('#username').val());
+	});*/
+})
+
+// ajax for quering the database
+function usernameExists(username){
+	$.ajax({                                      
+    	url: 'admin/usernameExists',
+		data: "username="+username,      
+    	type: "POST",
+    	dataType: 'text',
+    	success: function(data){
+			if(data=="1"){
+   		 		$('#username').popover('show');
+				$('#username').css("color","#d9534f");
+				$('#username').css("border-color","#d9534f");
+				$("#addUser").prop("disabled",true);
+			}else{
+				$('#username').popover('hide');
+				$('#username').css("color","#495057");
+				$('#username').css("border-color","#80bdff");
+				$("#addUser").prop("disabled",false);
+			}
+    	} 
+	});
+}
+</script>

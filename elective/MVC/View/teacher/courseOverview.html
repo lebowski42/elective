@@ -1,0 +1,22 @@
+<p class="mt-3"><b>{{ @teacherCourseOverviewHeader}}</b></p>
+<div class="card">
+  <h3 class="card-header">{{ @courseCard.courseTitle }}</h3>
+  <div class="card-block">
+    <p><b>{{ ucfirst(@lang.teacher) }}:</b> {{ @courseCard.teachers }}</p>
+	<p><b>{{ @lang.courseID }}:</b> {{ @courseCard.courseID }}</p>
+	<check if="{{ @courseCard.room }}">
+	<true>
+		<b>{{ @lang.room }}: </b>{{ @courseCard.room }}
+		<br><br>
+	</true>
+	</check>
+    <p class="card-text">{{ @courseCard.courseDescription }}</p>
+	<check if="{{ @courseCard.courseNote }}">
+	<true>
+		<br>
+		<b>{{ @lang.courseNote }}</b>
+		<p>{{ @courseCard.courseNote }}</p>
+    </true>
+	</check>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<script type="text/javascript">
+	function leaveCourse(id){
+    	$.ajax({                                      
+    		url: 'countCourseLeader',      
+    		data: "courseID="+id,
+    		type: "GET",
+    		dataType: 'text',
+    		success: function(data){
+				if(data == 1){
+					if (confirm("{{ @lang.teacherDeleteCourse }}")) {
+    					window.location.href = '/leaveCourse?courseID='+id+"&token={{ @SESSION.csrf}}";
+					}
+				}else{
+					window.location.href = '/leaveCourse?courseID='+id+"&token={{ @SESSION.csrf}}";
+				}
+
+      		} 
+		});
+	}
+</script>
+
+
+
+
+
+
+
+<include href="teacher/courseOverview.html" />
+<div class="clearfix""></div>
+<div style="margin-top:30px;"></div>
+
+
+<form method="post" action="editCourse">
+<input type="hidden" class="form-control" name="courseID" id="courseID" value="{{ @course->getCourseID() }}">
+<button type="submit" style="float: left;" class="btn btn-lg btn-primary" value="edit" >{{ @lang.editCourse }}</button>
+</form>
+
+<button type="submit" class="btn btn-lg btn-primary ml-3"style="float: left;" value="leave" onclick="return leaveCourse({{ @course->getCourseID() }})" >{{ @lang.leaveCourse }}</button>
+</form>
+
+<div class="clearfix"></div>
+
+<p class="mt-3">{{ @lang.deadlineEditCourse,@deadlineEditCourse |format}}</p>

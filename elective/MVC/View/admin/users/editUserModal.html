@@ -1,0 +1,73 @@
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalTitel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserTitel"><strong>{{ @lang.user}}:</strong>&nbsp;{{ @user->username }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<!-- user form -->
+		 <form method="POST" action="admin/modifyUser">
+			<input type="hidden"  name="token" value="{{ @SESSION.csrf }}">
+			<div class="form-group">
+				<label for="username"> {{ @lang.userID}}</label>
+				<input type="text" class="form-control" name="userID" id="userID" value="{{ @user->userID }}" readonly>
+			</div>			
+			<div class="form-group">
+				<label for="username"> {{ @lang.username}}</label>
+				<input type="text" class="form-control" name="username" id="username" value="{{ @user->username }}" readonly>
+			</div>
+			<div class="form-group">
+				<label for="pwd">{{ @lang.password}}</label>
+				<input type="text" class="form-control" id="password" name="password" placeholder="{{ @lang.admin.users.leavePasswordEmpty }}">
+			</div>
+			<div class="form-group">
+				<label for="fname">{{ @lang.fname}}</label>
+				<input type="text" class="form-control" id="fname" name="fname" value="{{ @user->fname }}">
+			</div>
+			<div class="form-group">
+				<label for="lname">{{ @lang.lname}}</label>
+				<input type="text" class="form-control" id="lname" name="lname" value="{{ @user->lname }}">
+			</div>
+			<div class="form-group">
+				<label for="formOfAddress">{{ @lang.formOfAddress}}</label>
+				<select name="formOfAddress" class="form-control" id="formOfAddress">
+					<option value="{{ @lang.mr}}" <check if="{{ @user->formOfAddress == @lang.mr}}"><true>selected="selected"<true></check>>{{ @lang.mr}}</option>
+					<option value="{{ @lang.mrs}}" <check if="{{ @user->formOfAddress == @lang.mrs}}"><true>selected="selected"<true></check>>{{ @lang.mrs}}</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="class">{{ @lang.class}}</label>
+				<input type="text" class="form-control" id="class" name="class"value="{{ @user->class }}">
+			</div>
+			<div class="form-group">
+				<label for="role">{{ @lang.admin.users.role}}</label>
+				<select name="role" class="form-control" id="role">
+					<option value="STUDENT" <check if="{{ @user->role == 'STUDENT'}}"><true>selected="selected"<true></check>>{{ @lang.student}}</option>
+					<option value="TEACHER" <check if="{{ @user->role == 'TEACHER'}}"><true>selected="selected"<true></check>>{{ @lang.teacher}}</option>
+					<option value="ADMIN" <check if="{{ @user->role == 'ADMIN'}}"><true>selected="selected"<true></check>>{{ @lang.administrator}}</option>
+				</select>
+			</div>
+			<div class="email">
+				<label for="email">{{ @lang.email}}</label>
+				<input type="text" class="form-control" id="email" name="email" value="{{ @user->email }}">
+			</div>
+
+			  <button type="submit" class="btn btn-lg btn-primary btn-block mt-3" id="addUser">{{ @lang.admin.users.saveUser }}</button>
+		</form> 
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$('#editUserModal').modal('show');
+})
+
+// ajax for quering the database
+
+</script>

@@ -1,0 +1,102 @@
+<form method="post" action="saveCourse">
+                <fieldset>
+					<input type="hidden"  name="token" value="{{ @SESSION.csrf }}">
+					<check if="{{ @course->getCourseID() }}">
+					<true>
+						<h1>{{ @lang.editCourse }}</h1>
+						<input type="hidden" class="form-control" name="courseID" id="courseID" value="{{ @course->getCourseID() }}">
+						<div class="alert alert-info" role="alert">
+ 							 {{ @lang.editCourseHint}}
+						</div>
+					</true>
+					<false>
+						<h1>{{ @lang.createCourse }}</h1>
+						<div class="alert alert-info" role="alert">
+ 							 {{ @lang.createCourseHint }}
+						</div>
+					</false>
+					</check>
+					<input type="hidden" class="form-control" name="userID" id="userID" value="{{ @userID }}">
+					<div class="form-group">
+						<label for="courseTitel" class="desc" style="display:inline">{{ @lang.courseTitle }}</label>
+						<check if="{{ @course->getCourseID() }}">
+						<true>
+							<small class="text-muted hint">({{ @lang.courseID }}: {{ @course->getCourseID() }})</small>
+						</true>
+						</check>
+						<input type="text" class="form-control" name="courseTitle" id="courseTitle" placeholder="{{ @lang.courseTitleHint }}" required="" value="{{ @course->courseTitle }}">
+					</div>
+					<div class="form-group">
+						<label for="courseDescription"  class="desc">{{ @lang.courseDescription }}</label>
+						<textarea class="form-control" name="courseDescription" id="courseDescription" rows="5" placeholder="{{ @lang.courseDescriptionHint }}" required="">{{ @course->courseDescription }}</textarea>
+					</div>
+					<div class="form-group">
+						<label for="teamteacher" class="desc" aria-describedby="teamteacherHelp">{{ @lang.teamteacher }}</label>
+						<small id="teamteacherHelp" class="form-text text-muted hint">{{ @lang.teamteacherHint }}</small>
+						<select multiple name="available-teacher[]" class="form-control" id="available-teacher" size="6" style="width:40%; float:left;">
+							<repeat group="{{ @availableTeachers }}" value="{{ @teacher }}">
+								<option value="{{ @teacher.teacherID }}" {{ @teacher.selected}}>{{ @teacher.teacherFormOfAdress }} {{ @teacher.teacherLName }} </option>
+							</repeat>
+						</select>
+						<div style="width:20%; float:left;" class="center-content">
+							<div>
+								<div class="center-content"><a href="JavaScript:void(0);" id="btn-add">{{ @lang.add }} &raquo;</a></div>
+								<div class="center-content"><a href="JavaScript:void(0);" id="btn-remove">&laquo; {{ @lang.remove }}</a></div>
+							</div>
+						</div>
+						<select multiple name="selected-teacher[]" class="form-control" id="selected-teacher" size="6" style="width:40%;">
+							<repeat group="{{ @courseLeaders }}" value="{{ @teacher }}">
+								<check if="{{ @teacher.teacherID == @userID}}">
+								<false>
+									<option value="{{ @teacher.teacherID }}" {{ @teacher.selected}}>{{ @teacher.teacherFormOfAddress }} {{ @teacher.teacherLName }}</option>
+								</false>
+								</check>
+							</repeat>
+						</select>
+					</div>
+					<div class="form-group">
+						<check if="{{ @teacherChangeMaxStudents }}">
+							<true>
+								<label for="maxStudents" class="desc">{{ @lang.maxStudents }}</label>
+								<input type="number" class="form-control" name="maxStudents" id="maxStudents" aria-describedby="maxStudentsHelp"  min="1" style="width:100px;" required value="{{ @course->maxStudents}}">
+							</true>
+						</check>
+						
+					</div>
+					<div class="form-group">
+						<label for="courseNote" class="desc">{{ @lang.courseNote }}</label>
+						<textarea class="form-control" name="courseNote" id="courseNote" rows="3" placeholder="{{ @lang.courseNoteHint }}">{{ @course->courseNote}}</textarea>
+					</div>
+				</fieldset>
+                <button type="submit" style="float: right;" class="btn btn-lg btn-primary" onclick="return selectAll();">{{ @lang.saveCourse }}</button>
+ </form>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#btn-add').click(function(){
+        $('#available-teacher option:selected').each( function() {
+                $('#selected-teacher').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
+            $(this).remove();
+        });
+    });
+    $('#btn-remove').click(function(){
+        $('#selected-teacher option:selected').each( function() {
+            $('#available-teacher').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
+            $(this).remove();
+        });
+    });
+});
+</script>
+
+<script type="text/javascript">
+    function selectAll() 
+    { 
+        selectBox = document.getElementById("selected-teacher");
+        for (var i = 0; i < selectBox.options.length; i++) 
+        { 
+             selectBox.options[i].selected = true; 
+        } 
+		return true;
+    }
+</script>
