@@ -638,7 +638,6 @@ class AdminController extends UserController {
 	}
 		
 	public function setupDatabase(){
-		if($this->adminOK()){
             $this->db->begin();
             $this->db->exec("CREATE TABLE `user` (
                             `userID` INT NOT NULL AUTO_INCREMENT,
@@ -652,8 +651,8 @@ class AdminController extends UserController {
                             `ignored` tinyint(1) NOT NULL DEFAULT '0',
                             `email` VARCHAR(180),
                             `email_verified` BOOLEAN NOT NULL DEFAULT 0,
-                            `last_login` TIMESTAMP,
                             `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            `last_login` TIMESTAMP,
                             PRIMARY KEY (`userID`),
                             UNIQUE (username)
                             );
@@ -667,7 +666,7 @@ class AdminController extends UserController {
                             `note` TEXT,
                             `room` VARCHAR(255),
                             `maxStudents` INT,
-                            `ignored` tinyint(1) NOT NULL DEFAULT '0'
+                            `ignored` tinyint(1) NOT NULL DEFAULT '0',
                             PRIMARY KEY (`courseID`)
                             );
                           ");
@@ -687,11 +686,10 @@ class AdminController extends UserController {
                             PRIMARY KEY (`userID`,`courseID`)
                             );
                           ");
-            $this->db->exec("INSERT INTO `user` (`userID`, `username`, `password`, `fname`, `lname`, `formOfAddress`, `class`, `role`, `email`, `email_verified`, `last_login`, `created_at`) VALUES (NULL, 'admin', '$2y$10$QjxMz2NENhcc.bbj8sc.a.kkA6.yJIzcA28wSKyMWUWb2uULs5mt.', NULL, '', NULL, NULL, 'ADMIN', NULL, '0', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)");
+            $this->db->exec("INSERT INTO `user` (`userID`, `username`, `password`, `fname`, `lname`, `formOfAddress`, `class`, `role`, `email`, `email_verified`, `last_login`, `created_at`) VALUES (NULL, 'admin', '$2y$10$ugbwkA6bTYqre1IGz1BN.eD3B7RnCo04Cr9UuPA7DKpBfiQmcYoRy', NULL, '', NULL, NULL, 'ADMIN', NULL, '0', NULL, CURRENT_TIMESTAMP)");
             $this->db->commit();
             $this->f3->set('SESSION.info',$this->f3->get('lang.admin.createdDB'));
 			$this->mainTemplate();
 			$this->f3->reroute('/');
 		}
-	}
 }

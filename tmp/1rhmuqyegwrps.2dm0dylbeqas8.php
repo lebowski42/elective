@@ -1,0 +1,30 @@
+<div class="card mt-4">
+  <div class="card-header">
+    <h4><?= $lang['maxStudents'] ?></h4>
+  </div>
+  <div class="card-block p-2">
+	<div id="studentsPerCourse">
+	<form enctype="multipart/form-data" action="admin/setMaxStudentsPerCourse" method="POST">
+		<input type="hidden"  name="token" value="<?= $SESSION['csrf'] ?>"/>
+        <b><?= $lang['admin']['courses']['studentsPerCourse'] ?></b> <input type="number" class="form-control" name="maxStudents" id="maxStudents" aria-describedby="maxStudentsHelp"  min="1" style="width:100px;" required ">
+		 <input type="checkbox" class="mt-2" name="multiplyNumberOfTeacher" value="multiplyNumberOfTeacher"> <b><?= $lang['admin']['courses']['multiplyNumberOfTeacher'] ?></b><br>
+<button type="submit" class="btn btn-lg btn-primary mt-2" style="display: inline-block;" value="setMaxStudent" ><?= $lang['admin']['courses']['setStudentsPerCourse'] ?></button>
+	</form>
+    </div>
+  </div>
+</div>
+<div class="card mt-4 mb-4">
+	<div class="card-header">
+		<h4><?= $lang['courses'] ?></h4>
+	</div>
+	<div class="card-block p-2">
+		<div id="coursesTableWrapper"><div class="loader">	
+		</div></div>
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+	adminCourseTable();
+});
+
+</script>
