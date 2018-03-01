@@ -23,13 +23,13 @@ $(document).ready(function() {
          		</li>
 			</true>
 			</check>
-			<check if="{{ @SESSION.role == 'TEACHER' }}">
+			<!-- <check if="{{ @SESSION.role == 'TEACHER' }}">
 			<true>
 				<li class="nav-item">
-         			<a class="nav-link" href="/start">{{ @lang.myCourse }}</a>
+         			<a class="nav-link" href="/">{{ @lang.myCourse }}</a>
          		</li>
 			</true>
-			</check>
+			</check>-->
 			<check if="{{ @SESSION.role == 'ADMIN' }}">
 			<true>
 				<li class="nav-item">

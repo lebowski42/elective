@@ -219,7 +219,7 @@ class AdminController extends UserController {
 	
 	public function generateUserListRTF(){
 		if($this->adminOK()){
-			$usersD = sortUsersList($this->f3->get('SESSION.csvUser'),$this->f3->get('GET.orderBy'));
+			$usersD = $this->sortUserList($this->f3->get('SESSION.csvUser'),$this->f3->get('GET.orderBy'));
 			
 			/*$orderBy = array();
 			//  map  order criteria to array index

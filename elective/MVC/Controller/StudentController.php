@@ -7,7 +7,7 @@ class StudentController extends UserController {
      **/
     function studentsCourseSelection() {
 			// Get all available courses
-			$this->f3->set('courses',$this->db->exec('SELECT courseID, title FROM course WHERE course.courseID NOT IN (SELECT selection.courseID FROM selection WHERE selection.userID = ?) ORDER BY title ASC', $this->f3->get('SESSION.userID')));
+			$this->f3->set('courses',$this->db->exec('SELECT courseID, title FROM course WHERE course.courseID NOT IN (SELECT selection.courseID FROM selection WHERE selection.userID = ?) AND course.ignored = 0 ORDER BY title ASC', $this->f3->get('SESSION.userID')));
 			$this->f3->set('scourses',$this->getSelection());
 			$this->f3->set('content','student/selectCourse.html');
 			$this->mainTemplate();
@@ -64,7 +64,7 @@ class StudentController extends UserController {
      * @return: array
      **/
     function getSelection(){
-			return $this->db->exec('SELECT courseID, title, priority FROM course JOIN selection USING(courseID) WHERE userID = ? ORDER BY priority ASC', $this->f3->get('SESSION.userID'));
+			return $this->db->exec('SELECT courseID, title, priority FROM course JOIN selection USING(courseID) WHERE userID = ? AND course.ignored = 0 ORDER BY priority ASC', $this->f3->get('SESSION.userID'));
 	}
 	
 	

@@ -78,7 +78,7 @@ class TeacherController extends UserController {
 		}
 		if($this->isAllowedToEditCourse($new, $course)){
 			$this->f3->set('userID',$this->f3->get('SESSION.userID'));
-			$this->f3->set('availableTeachers',$this->db->exec('SELECT userID AS teacherID, formOfAddress AS teacherFormOfAddress, lName AS teacherLName, fName AS teacherFName FROM user WHERE role="TEACHER" AND user.userID NOT in (SELECT userID FROM courseLeader) AND user.userID != ?', $this->f3->get('SESSION.userID')));
+			$this->f3->set('availableTeachers',$this->db->exec('SELECT userID AS teacherID, formOfAddress AS teacherFormOfAddress, lName AS teacherLName, fName AS teacherFName FROM user WHERE role="TEACHER" AND user.userID NOT in (SELECT userID FROM courseLeader) AND user.ignored = 0 AND user.userID != ?', $this->f3->get('SESSION.userID')));
 			$this->f3->set('content','teacher/editCourse.html');
 			$this->mainTemplate();
 		}

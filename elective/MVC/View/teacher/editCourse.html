@@ -35,7 +35,7 @@
 						<small id="teamteacherHelp" class="form-text text-muted hint">{{ @lang.teamteacherHint }}</small>
 						<select multiple name="available-teacher[]" class="form-control" id="available-teacher" size="6" style="width:40%; float:left;">
 							<repeat group="{{ @availableTeachers }}" value="{{ @teacher }}">
-								<option value="{{ @teacher.teacherID }}" {{ @teacher.selected}}>{{ @teacher.teacherFormOfAdress }} {{ @teacher.teacherLName }} </option>
+								<option value="{{ @teacher.teacherID }}" {{ @teacher.selected}}>{{ @teacher.teacherFormOfAddress }} {{ @teacher.teacherLName }} </option>
 							</repeat>
 						</select>
 						<div style="width:20%; float:left;" class="center-content">
