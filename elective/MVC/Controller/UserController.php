@@ -9,6 +9,7 @@ class UserController extends Controller{
 
 	function logout(){
 		 if($this->f3->get('SESSION.username') !== null ) {
+			$this->log("user ".($this->f3->get('SESSION.username'))." logged out.");
 			$this->f3->clear('SESSION');
 			$this->f3->set('alert.info',$this->f3->get('loggedout'));
 		}
@@ -33,7 +34,8 @@ class UserController extends Controller{
         }
 		$this->user = $user;
 
-        if(password_verify($password, $user->password)) {
+        if(password_verify($password, $user->password) ) {
+		if($user->ignored == 0){ // ignored users cannot login
 			$this->f3->set('SESSION.userID', $user->userID);            
 			$this->f3->set('SESSION.username', $user->username);
 			$this->f3->set('SESSION.role', $user->role);
@@ -42,9 +44,16 @@ class UserController extends Controller{
 			$this->f3->set('SESSION.email', $user->email);
 			$this->f3->set('SESSION.class', $user->class);
 			$this->f3->set('SESSION.csrf',uniqid('', true));
-            $this->f3->reroute('/');
+			$this->log("user ".($user->username)." logged in.");
+            		$this->f3->reroute('/');
+		}else{
+			$this->f3->set('SESSION.warning',$this->f3->get('lang.notAllowedToSignIn'));
+			$this->log("user ".($user->username)." no login, is ignored.");
+            		$this->f3->reroute('/');
+		}
         } else {
-			$this->f3->set('SESSION.warning',$this->f3->get('lang.passwordWrong'));
+	    $this->log("user ".($user->username)." no login, wrong password.");
+	    $this->f3->set('SESSION.warning',$this->f3->get('lang.passwordWrong'));
             $this->f3->reroute('/login');
         }
     }

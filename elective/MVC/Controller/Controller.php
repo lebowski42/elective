@@ -1,7 +1,7 @@
 <?php
 
 class Controller {
-
+    protected $logger;
     protected $f3;
     protected $db;
 
@@ -31,6 +31,7 @@ class Controller {
 
 
         $this->db=$db;
+	$this->logger= new Log('sys.log');
     }
     
     //Not loggedin -> login
@@ -219,4 +220,11 @@ class Controller {
 	 static function userLoggedIn(){
 		return ($this->f3->get('SESSION.username') != NULL);
 	 }
+
+	/*
+	 * Writes to logfile ($this->logger)
+	*/
+	function log($text){
+		$this->logger->write($text);
+	}
 }

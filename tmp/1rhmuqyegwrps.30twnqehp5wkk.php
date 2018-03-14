@@ -1,8 +1,0 @@
-      <form class="form-signin" method="post" action="authenticate">
-                <h3 class="form-signin-heading"><?= $lang['loginHead'] ?></h3>
-                <label class="sr-only" for="inputEmail"><?= $lang['username'] ?></label>
-                <input type="text" name="username" autofocus="" required="" placeholder="<?= $lang['username'] ?>" class="form-control" id="inputEmail">
-                <label class="sr-only" for="inputPassword"><?= $lang['password'] ?></label>
-                <input type="password" name="password" required="" placeholder="<?= $lang['password'] ?>" class="form-control" id="inputPassword">
-                <button type="submit" class="btn btn-lg btn-primary btn-block"><?= $lang['login'] ?></button>
-      </form>
