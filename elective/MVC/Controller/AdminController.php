@@ -86,63 +86,64 @@ class AdminController extends UserController {
 	}
 	
 	function csvUsersUpload(){
-		//admin, token, test ob token ok, Datei vorhanden
-		$this->f3->set('SESSION.csvInfo','');
-		$row = 1;
-		$csv = array_map('str_getcsv', file($_FILES['csvUsers']['tmp_name']),array(',','')); // READ csv File 
-		$row = 0;
-		$this->f3->set('SESSION.csvRole',$this->f3->get('POST.role')); // STUDENT TEACHER ADMIN?
-		$error=array();
-		foreach($csv as $key => $user){
-			// empty username?
-			if(empty($user[0]) && !empty($user[2])){
-				$csv[$key][0] = $user[3].$user[2];
+		if($this->adminOK()  && $this->csrfTokenOK()){
+			$this->f3->set('SESSION.csvInfo','');
+			$row = 1;
+			$csv = array_map('str_getcsv', file($_FILES['csvUsers']['tmp_name']),array(',','')); // READ csv File 
+			$row = 0;
+			$this->f3->set('SESSION.csvRole',$this->f3->get('POST.role')); // STUDENT TEACHER ADMIN?
+			$error=array();
+			foreach($csv as $key => $user){
+				// empty username?
+				if(empty($user[0]) && !empty($user[2])){
+					$csv[$key][0] = $user[3].$user[2];
+				}
+				// empty Passwort
+				if(empty($user[1])){
+					$csv[$key][1] = $this->randomPassword($this->f3->get('minPasswordLength'));
+				}
+				// no username? use lastname
+				if(empty($user[2]) && !empty($user[0])){
+					$csv[$key][2] = $user[0];
+				}
+				//no username and lname.
+				if(empty($user[0])||empty($user[2])){
+						array_push($error,$this->f3->get('lang.admin.users.row').' '.($row+1).': '.$this->f3->get('lang.admin.users.missingUsername'));
+				}
+				$row++;
 			}
-			// empty Passwort
-			if(empty($user[1])){
-				$csv[$key][1] = $this->randomPassword($this->f3->get('minPasswordLength'));
-			}
-			// no username? use lastname
-			if(empty($user[2]) && !empty($user[0])){
-				$csv[$key][2] = $user[0];
-			}
-			//no username and lname.
-			if(empty($user[0])||empty($user[2])){
-					array_push($error,$this->f3->get('lang.admin.users.row').' '.($row+1).': '.$this->f3->get('lang.admin.users.missingUsername'));
-			}
-			$row++;
-		}
-		// Same username
-		foreach($csv as $tKey => $tUser ){
-			for($i=$tKey+1; $i < count($csv); $i++) {
-				if($tUser[0] == $csv[$i][0]){
-					array_push($error,$this->f3->get('lang.admin.users.row').' '.($tKey+1).' & '.($i+1).': '.$this->f3->get('lang.admin.users.sameUsername'));
+			// Same username
+			foreach($csv as $tKey => $tUser ){
+				for($i=$tKey+1; $i < count($csv); $i++) {
+					if($tUser[0] == $csv[$i][0]){
+						array_push($error,$this->f3->get('lang.admin.users.row').' '.($tKey+1).' & '.($i+1).': '.$this->f3->get('lang.admin.users.sameUsername'));
+					}
 				}
 			}
-		}
-		// Serachlist for sql
-		$usernames=array_column($csv,'0');
-		$searchList = '\''.str_replace(",","','",implode(',', $usernames)).'\''; 
-		// username in db?
-		$result = $this->db->exec('SELECT username FROM user WHERE username IN ('.$searchList.')');
-		// Find line
-		foreach($usernames as $row=>$username){
-				foreach($result as $dbuser){
-						if($username == $dbuser['username']){
-								array_push($error,$this->f3->get('lang.admin.users.row').' '.($row+1).' ('.$this->f3->get('lang.username').' '.$username.'): '.$this->f3->get('lang.admin.users.inDatabase'));
-						}
-				}
-		}
-		// if errors occured, set SESSION var and reroute to admin panel view/admin/users.html renders them.
-		if(!empty($error)){
-			$this->f3->set('errors',$error);
-			$this->f3->set('SESSION.csvInfo',\Template::instance()->render('admin/users/csvUserError.html'));
-		}else{
-			// show everting and wait for confirmation
-			$this->f3->set('SESSION.csvUser',$csv);// We need them later to write them to db.
-			$this->f3->set('SESSION.csvInfo',\Template::instance()->render('admin/users/csvUserList.html'));
-		}
-		$this->f3->reroute('/administrator#users');
+			// Serachlist for sql
+			$usernames=array_column($csv,'0');
+			$searchList = '\''.str_replace(",","','",implode(',', $usernames)).'\''; 
+			// username in db?
+			$result = $this->db->exec('SELECT username FROM user WHERE username IN ('.$searchList.')');
+			// Find line
+			foreach($usernames as $row=>$username){
+					foreach($result as $dbuser){
+							if($username == $dbuser['username']){
+									array_push($error,$this->f3->get('lang.admin.users.row').' '.($row+1).' ('.$this->f3->get('lang.username').' '.$username.'): '.$this->f3->get('lang.admin.users.inDatabase'));
+							}
+					}
+			}
+			// if errors occured, set SESSION var and reroute to admin panel view/admin/users.html renders them.
+			if(!empty($error)){
+				$this->f3->set('errors',$error);
+				$this->f3->set('SESSION.csvInfo',\Template::instance()->render('admin/users/csvUserError.html'));
+			}else{
+				// show everting and wait for confirmation
+				$this->f3->set('SESSION.csvUser',$csv);// We need them later to write them to db.
+				$this->f3->set('SESSION.csvInfo',\Template::instance()->render('admin/users/csvUserList.html'));
+			}
+			$this->f3->reroute('/administrator#users');
+	}
 	}
 	
 	/*
@@ -462,7 +463,7 @@ class AdminController extends UserController {
 	}
 	
 	public function userTask(){
-		if($this->adminOK()){
+		if($this->adminOK()  && $this->csrfTokenOK()){
 			if($this->f3->get('POST.type') == 'edit'){
 				$user = new User($this->db);
 				$user->getById($this->f3->get('POST.userID'));
@@ -486,7 +487,7 @@ class AdminController extends UserController {
 	}
 	
 	public function courseTask(){
-		if($this->adminOK()){
+		if($this->adminOK() && $this->csrfTokenOK()){
 			if($this->f3->get('POST.type') == 'del'){
 				foreach($this->f3->get('POST.courseID') as $courseID){
 					$course = new Course($this->db);
@@ -638,6 +639,7 @@ class AdminController extends UserController {
 	}
 		
 	public function setupDatabase(){
+		if($this->adminOK()){
             $this->db->begin();
             $this->db->exec("CREATE TABLE `user` (
                             `userID` INT NOT NULL AUTO_INCREMENT,
@@ -692,4 +694,5 @@ class AdminController extends UserController {
 			$this->mainTemplate();
 			$this->f3->reroute('/');
 		}
+	}
 }

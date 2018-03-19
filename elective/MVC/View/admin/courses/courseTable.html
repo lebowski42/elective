@@ -20,7 +20,7 @@ $(document).ready(function() {
 						alert("{{ @lang.admin.courses.pleaseSelectCourse }}");
 					}else{//ajax
 						if(window.confirm("{{ @lang.reallyDelete }}")){
-							modifyCourse('del',selectedRows.ids().toArray());
+							modifyCourse('del',selectedRows.ids().toArray(), '{{ @SESSION.csrf }}');
 						}
 						//selectedRows.remove().draw();
 					}
@@ -33,7 +33,7 @@ $(document).ready(function() {
 					if(selectedRows.ids().toArray() == 0){
 						alert("{{ @lang.admin.courses.pleaseSelectCourse }}");
 					}else{//ajax
-						modifyCourse('ignore',selectedRows.ids().toArray());
+						modifyCourse('ignore',selectedRows.ids().toArray(), '{{ @SESSION.csrf }}');
 						//selectedRows.remove().draw();
 					}
                 }
@@ -45,7 +45,7 @@ $(document).ready(function() {
 					if(selectedRows.ids().toArray() == 0){
 						alert("{{ @lang.admin.courses.pleaseSelectCourse }}");
 					}else{//ajax
-						modifyCourse('activate',selectedRows.ids().toArray());
+						modifyCourse('activate',selectedRows.ids().toArray(), '{{ @SESSION.csrf }}');
 						//selectedRows.remove().draw();
 					}
                 }
@@ -59,7 +59,7 @@ $(document).ready(function() {
 					}else{//ajax
 						var number = prompt("{{ lang.maxStudents }}", "1");
 						var numberInt = parseInt(number);
-						modifyCourse('maxStudents',selectedRows.ids().toArray(),numberInt);
+						modifyCourse('maxStudents',selectedRows.ids().toArray(),numberInt, '{{ @SESSION.csrf }}');
 					}
                 }
             }

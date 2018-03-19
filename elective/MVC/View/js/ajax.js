@@ -23,10 +23,10 @@ function popularCourses(id){
 	});
 }
 
-function addCSVUserToDB(csfr){
+function addCSVUserToDB(csrf){
 	$.ajax({                                      
     	url: 'addCSVUsersDB',
-		data: "token="+csfr,      
+		data: "token="+csrf,      
     	type: "POST",
     	dataType: 'text',
     	success: function(data){
@@ -48,12 +48,12 @@ function usersTable(){
 	});
 }
 
-function modifyUser(type, userID){//edit, add, del
+function modifyUser(type, userID, csrf){//edit, add, del
 	$.ajax({                                      
     	url: '/admin/userTask',    
     	type: "POST",
     	dataType: 'text',
-		data: {type: type, userID: userID},
+		data: {type: type, userID: userID, token: csrf},
     	success: function(data){
 			$('#userDialogModal').html(data);
     	} 
@@ -83,12 +83,12 @@ function adminCourseTable(){
 	});
 }
 
-function modifyCourse(type, courseID, data){//del, ignore
+function modifyCourse(type, courseID, data, csrf){//del, ignore
 	$.ajax({                                      
     	url: '/admin/courseTask',    
     	type: "POST",
     	dataType: 'text',
-		data: {type: type, courseID: courseID, data: data},
+		data: {type: type, courseID: courseID, data: data, token: csrf},
     	success: function(data){
 			adminCourseTable();
     	} 

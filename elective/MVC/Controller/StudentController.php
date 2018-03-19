@@ -35,6 +35,7 @@ class StudentController extends UserController {
 				
 				$this->db->exec('INSERT INTO `selection` (`userID`, `courseID`, `last_save`, `priority`, `fix`) VALUES '.$inserts);
 				$this->f3->set('SESSION.info',$this->f3->get('lang.selectionSaved'));
+				$this->log("Student ".($user->username)." new selection:".implode(',',$inserts));
 			}else{
 				$this->f3->set('SESSION.warning',$this->f3->get('lang.alertCourseNumber',array($min,$max))." ".$len);
 			}	

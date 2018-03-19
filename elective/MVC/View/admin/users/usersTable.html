@@ -15,7 +15,7 @@ $(document).ready(function() {
 					if(selectedRow.length == 0){
 						alert("{{ @lang.admin.users.pleaseSelectUser }}");
 					}else{//ajax
-						modifyUser('edit',selectedRow.id());
+						modifyUser('edit',selectedRow.id(),'{{ @SESSION.csrf }}');
 					}
                 }
             },
@@ -23,7 +23,7 @@ $(document).ready(function() {
                 text: '{{ @lang.admin.users.addUser }}',
                 action: function () {
 					//ajax
-					modifyUser('add',-1);
+					modifyUser('add',-1,'{{ @SESSION.csrf }}');
                 }
             },
 			{
@@ -34,7 +34,7 @@ $(document).ready(function() {
 						alert("{{ @lang.admin.users.pleaseSelectUser }}");
 					}else{//ajax
 						if(window.confirm("{{ @lang.reallyDelete }}")){
-							modifyUser('del',selectedRows.ids().toArray());
+							modifyUser('del',selectedRows.ids().toArray(),'{{ @SESSION.csrf }}');
 							selectedRows.remove().draw();
 						}
 					}
