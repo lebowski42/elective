@@ -103,13 +103,15 @@ Solche Dateien kann man meisten einfach aus den Schulverwaltungsprogrammen expor
 
 ##### Aufbau der csv-Datei
 In der csv-Datei muss jede Spalte die Form 
-ˋˋˋ
+``` 
 Benutzername,Passwort,Nachname,Vorname,Anrede,Klasse,eMail
-ˋˋˋ
+``` 
 
 haben, also z. B. 
-> MaxMeier,geheim,Meier,Max,Herr,7a,max@meier.de
-> MajaMüller,strengGeheim,,,,9a,
+``` 
+MaxMeier,geheim,Meier,Max,Herr,7a,max@meier.de
+MajaMüller,strengGeheim,,,,9a,
+``` 
 
 Notwendig ist die Angabe des Benutzernamens und des Passwortes . Die Angabe der Klasse ist sinnvoll, um die Listen nachher zu strukturieren (Klassenlisten, etc.). Bei Lehrern wird über die Klasse angegeben, in welcher Klasse er Klassenlehrer ist.
 
