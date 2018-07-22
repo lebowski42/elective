@@ -1,4 +1,12 @@
 # elective
+
+elective ist eine Webanwendung um Projektkurse bzw Wahlkurse zu verwalten
+**Lehrer** können einen Kurs anlegen, ihn beschreiben und weitere Lehrkräfte angeben, die sich an dem Kurs beteiligen.
+
+**Schüler** können aus einer Liste von Angeboten (z. B. Projektkurse, Wahlfächern, Zusatzkursen) ihre favorisierten Kurse wählen. Dabei können sie angeben, was ihr Erstwunsch, Zweitwunsch, usw. ist.
+
+**Administratoren**
+
 web app for students to choose electives
 
 
