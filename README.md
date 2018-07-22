@@ -103,7 +103,8 @@ Solche Dateien kann man meisten einfach aus den Schulverwaltungsprogrammen expor
 
 ##### Aufbau der csv-Datei
 In der csv-Datei muss jede Spalte die Form 
-ˋˋˋBenutzername,Passwort,Nachname,Vorname,Anrede,Klasse,eMail
+ˋˋˋ
+Benutzername,Passwort,Nachname,Vorname,Anrede,Klasse,eMail
 ˋˋˋ
 
 haben, also z. B. 
