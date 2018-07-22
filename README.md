@@ -1,11 +1,22 @@
 # elective
 
-elective ist eine Webanwendung um Projektkurse bzw Wahlkurse zu verwalten
+__elective__ ist eine Webanwendung um Projektkurse bzw Wahlkurse zu verwalten
+
+## Kurzübersicht
+
 **Lehrer** können einen Kurs anlegen, ihn beschreiben und weitere Lehrkräfte angeben, die sich an dem Kurs beteiligen.
 
 **Schüler** können aus einer Liste von Angeboten (z. B. Projektkurse, Wahlfächern, Zusatzkursen) ihre favorisierten Kurse wählen. Dabei können sie angeben, was ihr Erstwunsch, Zweitwunsch, usw. ist.
 
-**Administratoren**
+**Administratoren** können sehen, welche Benutzer noch keine Angaben gemacht haben und sich Statistiken zur Wahl anzeigen lassen. Es können verschiedene Listen gedruckt werden (Kursübersicht, Kurslisten) und ein Algorithmus berechnet aufgrund der abgegebenen Wahlen und Kursgrößen eine ideale Verteilung der Schüler auf die Kurse
+
+# Installation
+Voraussetzungen für die Installation sind
+- Webserver mit php >5.4
+- Datenbank (am Besten MySQL oder MariaDB, sqlite und Microsoft SQLServer sind nicht getestet)
+
+für die Installation müssen 
+
 
 web app for students to choose electives
 
