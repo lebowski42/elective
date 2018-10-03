@@ -1,25 +1,33 @@
 # elective
 
-__elective__ ist eine Webanwendung um Projektkurse bzw Wahlkurse zu verwalten
+__elective__ ist eine Webanwendung um Projektkurse bzw. Wahlkurse zu verwalten
 
 ## Kurzübersicht
 
 **Lehrer** können einen Kurs anlegen, ihn beschreiben und weitere Lehrkräfte angeben, die sich an dem Kurs beteiligen.
 
-**Schüler** können aus einer Liste von Angeboten (z. B. Projektkurse, Wahlfächern, Zusatzkursen) ihre favorisierten Kurse wählen. Dabei können sie angeben, was ihr Erstwunsch, Zweitwunsch, usw. ist.
+**Schüler** können aus einer Liste von Angeboten (z. B. Projektkurse, Wahlfächern, Zusatzkursen, ...) ihre favorisierten Kurse wählen. Dabei können sie angeben, was ihr Erstwunsch, Zweitwunsch, usw. ist.
 
 **Administratoren** können sehen, welche Benutzer noch keine Angaben gemacht haben und sich Statistiken zur Wahl anzeigen lassen. Es können verschiedene Listen gedruckt werden (Kursübersicht, Kurslisten) und ein Algorithmus berechnet aufgrund der abgegebenen Wahlen und Kursgrößen eine ideale Verteilung der Schüler auf die Kurse
+Sie können außerdem Listen und Übersicheten erzeugen.
 
 ## Installation
 Voraussetzungen für die Installation sind
 - Webserver mit php >5.4
-- Datenbank (am Besten MySQL oder MariaDB, sqlite und Microsoft SQLServer sind nicht getestet)
+- Datenbank (am besten MySQL oder MariaDB, sqlite und Microsoft SQLServer sind nicht getestet)
 
-Lade das neuste [zip-Archiv](https://github.com/lebowski42/elective/archive/master.zip) herunter und entpacke es in deinem Webspace.
+Lade das neuste [zip-Archiv](https://github.com/lebowski42/elective/archive/master.zip) herunter und entpacke es in deinem Webspace. 
 
-Lege eine Datenbank an. Du benötigst den Datenbankhost (alsodie Adresse für deine Datenbank), den Datenbanknamen und das zugehörige Passwort.
+### Datenbank einrichten
+Lege eine Datenbank an (z. B. mit phpmyadmin). Du benötigst den Datenbankhost (also die Adresse für deine Datenbank), den Datenbanknamen und das zugehörige Passwort.
 
-Öffne nun die Datei ... und trage unter den Punkten .. die werte ein.
+**Beispiel** :
+- Datenbankhost: meinDBhost.de
+- Datenbankname: elective
+- Datenbankbenutzer: elective_user
+- Passwort: geheim
+
+Öffne nun die Datei *<Webserver>/elective/config/config.ini* mit einem Texteditor und ergänze die folgenden Einträge
 
 ### .htaccess und ssl-Zertifikat
 
@@ -33,8 +41,8 @@ Danach können Sie sich mit dem Benutzernamen *admin* und dem Passwort *password
 ....
 ## Elective benutzen
 ### Lehrer
-Melden Sie sich mit ihrem Benutzernamen und Kennwort ein.
-Haben Sie sich zum ersten Mal angemeldet, können Sie entscheiden, ob Sie einen neuen Kurs erstellen wollen, oder ob Sie einem bestehenden Kurs als weitere ehrkraft beitreten wollen.
+Melden Sie sich mit ihrem Benutzernamen und Kennwort an.
+Haben Sie sich zum ersten Mal angemeldet oder sind sie noch keinem Kurs zugeordnet, können Sie entscheiden, ob Sie einen neuen Kurs erstellen wollen oder ob Sie einem bestehenden Kurs als weitere Lehrkraft beitreten wollen.
 Gehören Sie schon einem Kurs an, können Sie die Angaben zu diesem Kurs bearbeiten oder den Kurs verlassen.
 
 ### Kurs anlegen oder bearbeiten
